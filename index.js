@@ -5,8 +5,10 @@ var bodyParser = require('body-parser')
 const port = process.env.PORT || 4000
 
 const { users } = require('./state')
+
 let count=users.length
 /* BEGIN - create routes here */
+app.use(bodyParser.json());
 app.get("/users", (req,res)=>res.json(users));
 app.get("/users/:id", (req,res)=>res.json(users[req.params.id-1]));
 app.post("/users",(req,res)=>{
@@ -28,7 +30,7 @@ app.post("/users",(req,res)=>{
   // users.push({...req.body,
   //              ..._id:count,})
   res.json(users)});
-  
+
 app.put("/users/1",(req,res)=>{
   let newp={
     ...users[0],
